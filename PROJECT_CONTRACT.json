@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "metrics": {
+    "production_loc": 3040,
+    "production_files": 18,
+    "production_packages": 8,
+    "test_files": 9,
+    "production_functions": 44,
+    "decision_points": 50
+  },
+  "persistence": {
+    "module": "go.etcd.io/bbolt",
+    "entities": ["Inspection", "Finding", "Approval", "ArchiveRecord"],
+    "reopen_test": "TestPersistenceSurvivesReopen"
+  },
+  "workflows": [
+    {"steps": ["create inspection", "add findings", "calculate score", "submit inspection"], "test": "TestWorkflowOne"},
+    {"steps": ["load submitted inspection", "validate policy", "approve or reject", "persist decision"], "test": "TestWorkflowTwo"},
+    {"steps": ["query approved inspection", "assign retention reason", "mark archived", "verify persisted archive"], "test": "TestWorkflowThree"}
+  ]
+}
